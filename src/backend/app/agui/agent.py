@@ -403,7 +403,7 @@ class CopilotAgent:
                     asyncio.gather(*(self._resolve_pending(thread, r) for r in results)),
                     max(deadline - loop.time(), 0),
                 )
-            elif new_user:
+            elif new_user and last_user is not None:
                 thread.sent_user_ids.add(last_user.id)
                 text, attachments = new_user
                 await asyncio.wait_for(
